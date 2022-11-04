@@ -188,7 +188,7 @@ std::string Print::FormatNumber(int Num)
 
 void Print::Version()
 {
-    std::cout << "IP-Calculator v1.0.0\n\nIP-Calculator Copyright (C) 2022 Andor Zoltán Fülöp\nThis program comes with ABSOLUTELY NO WARRANTY; for details visit <https://gnu.org/licenses/gpl.html>.\nThis is free software, and you are welcome to redistribute it\nunder certain conditions; visit <https://gnu.org/licenses/gpl.html> for details.\n\nWritten by Andor Zoltán Fülöp.\n";
+    std::cout << "IP-Calculator v1.0.0\n\nIP-Calculator Copyright (C) 2022 Andor Zoltan Fulop\nThis program comes with ABSOLUTELY NO WARRANTY; for details visit <https://gnu.org/licenses/gpl.html>.\nThis is free software, and you are welcome to redistribute it\nunder certain conditions; visit <https://gnu.org/licenses/gpl.html> for details.\n\nWritten by Andor Zoltan Fulop.\n";
 }
 
 void Print::Help()
@@ -232,9 +232,9 @@ void Print::Help()
     
     // Author
     std::cout << "[AUTHOR]\n";
-    std::cout << "   Written by Andor Zoltán Fülöp.\n\n";
+    std::cout << "   Written by Andor Zoltan Fulop.\n\n";
 
     // Licence
     std::cout << "[LICENCE]\n";
-    std::cout << "   IP-Calculator Copyright (C) 2022 Andor Zoltán Fülöp\n   This program comes with ABSOLUTELY NO WARRANTY; for details visit <https://gnu.org/licenses/gpl.html>.\n   This is free software, and you are welcome to redistribute it\n   under certain conditions; visit <https://gnu.org/licenses/gpl.html> for details.\n";
+    std::cout << "   IP-Calculator Copyright (C) 2022 Andor Zoltan Fulop\n   This program comes with ABSOLUTELY NO WARRANTY; for details visit <https://gnu.org/licenses/gpl.html>.\n   This is free software, and you are welcome to redistribute it\n   under certain conditions; visit <https://gnu.org/licenses/gpl.html> for details.\n";
 }

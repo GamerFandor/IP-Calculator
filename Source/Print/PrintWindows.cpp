@@ -19,23 +19,48 @@
 #include "Defines.h"
 #include "Print/Print.h"
 #include <iostream>
+#include <windows.h>
 
 #ifdef PLATFORM_WINDOWS
 
 void Print::Success(std::string Message)
 {
+    HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
+    std::cout << "[ ";
+    SetConsoleTextAttribute(h, 10);
+    std::cout << "+";
+    SetConsoleTextAttribute(h, 7);
+    std::cout << " ] " << Message << "\n";
 }
 
 void Print::Information(std::string Message)
 {
+    HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
+    std::cout << "[ ";
+    SetConsoleTextAttribute(h, 9);
+    std::cout << "i";
+    SetConsoleTextAttribute(h, 7);
+    std::cout << " ] " << Message << "\n";
 }
 
 void Print::Warning(std::string Message)
 {
+    HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
+    std::cout << "[ ";
+    SetConsoleTextAttribute(h, 14);
+    std::cout << "!";
+    SetConsoleTextAttribute(h, 7);
+    std::cout << " ] " << Message << "\n";
 }
 
 void Print::Error(std::string Message)
 {
+    HANDLE h = GetStdHandle(STD_ERROR_HANDLE);
+    std::cout << "[ ";
+    SetConsoleTextAttribute(h, 12);
+    std::cout << "x";
+    SetConsoleTextAttribute(h, 7);
+    std::cout << " ] " << Message << "\n";
 }
 
 #endif

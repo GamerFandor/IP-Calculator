@@ -38,7 +38,7 @@ Address::Address(std::string addr, bool IsDecimal)
 		{
 			if (addr[i] == '.')
 			{
-				if (std::stoi(temp) > 255 or std::stoi(temp) < 0)
+				if (std::stoi(temp) > 255 || std::stoi(temp) < 0)
 				{
 					Print::Error("The given address is not valid!");
 					Print::Information("You can use \"--help\" argument for more information.");
@@ -52,7 +52,7 @@ Address::Address(std::string addr, bool IsDecimal)
 			temp = temp + addr[i];
 		}
 
-		if (std::stoi(temp) > 255 or std::stoi(temp) < 0)
+		if (std::stoi(temp) > 255 || std::stoi(temp) < 0)
 		{
 			Print::Error("The given address is not valid!");
 			Print::Information("You can use \"--help\" argument for more information.");
@@ -106,7 +106,7 @@ bool Address::IsValidAddress(std::string addr)
 		return false;
 
 	// Check the address not starts and not ends with dot
-	if (!addr.find(".", 0) or !addr.find(".", addr.length() - 1))
+	if (!addr.find(".", 0) || !addr.find(".", addr.length() - 1))
 		return false;
 
 	return true;
