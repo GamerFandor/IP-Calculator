@@ -19,11 +19,14 @@ FullPackageName=$AppName"_"$AppVersion"-"$PackageVersion"_"$Architecture
 
 mkdir -p ./$FullPackageName/usr/local/bin
 cp $AppBinaryPath ./$FullPackageName/usr/local/bin
+
+mkdir -p ./$FullPackageName/usr/share/man/man1
+cp $ManpagePath ./$FullPackageName/usr/share/man/man1/$AppName.1
+
+gzip ./$FullPackageName/usr/share/man/man1/$AppName.1 ./$FullPackageName/usr/share/man/man1/$AppName.1.gz
+rm ./$FullPackageName/usr/share/man/man1/$AppName.1
+
 mkdir ./$FullPackageName/DEBIAN
-
-cp $ManpagePath ./$FullPackageName/DEBIAN/$AppName.1
-echo "DEBIAN/"$AppName".1" > ./$FullPackageName/DEBIAN/$AppName.manpages 
-
 cat << EOF > ./$FullPackageName/DEBIAN/control
 Package: $AppName
 Version: $AppVersion
