@@ -219,7 +219,7 @@ void Print::Help()
     std::cout << "[OPTIONAL ARGUMENTS]\n";
     std::cout << "   -s <amount of required subnets>, --subnets <amount of required subnets>\n";
     std::cout << "         Devides the given network into the given subnets if it possible.\n\n";
-    std::cout << "   -h <amount of required hosts>, --hosts <amount of required hosts>\n";
+    std::cout << "   -e <amount of required hosts>, --hosts <amount of required hosts>\n";
     std::cout << "         Devides the given network to have enough hosts in the given subnetwork.\n\n";
     std::cout << "   -d <amount of required subnets>, --deviding <amount of required subnets>\n";
     std::cout << "         Devides the given network to subnetworks and subnetworks are devided into more subnetworks.\n\n";

@@ -1,0 +1,84 @@
+.TH IP-Calculator 1
+.SH NAME
+IP-Calculator \- Calculates subnets and prints information about an IP address.
+.SH SYNOPSIS
+.B ip-calculator
+[\fI\,OPTION\/\fR]... <\fI\,IP ADDRESS\/\fR> [\fI\,NETMASK\/\fR]
+.SH DESCRIPTION
+The IP-Calculator is one of the best programs for a system administrator.
+.br
+It can print information about both classless IP addresses and IP addresses that belong to a class.
+.br
+The program has 4 method for subnetting. It can devide network by the required subnet amount or the required host count.
+.br
+It also can do more complicated calculation methods as well.
+.SH OPTIONS
+.TP
+\fB\-s\fR <\fIamount of required subnets\fR>, \fB\-\-subnets\fR <\fIamount of required subnets\fR>
+Devide the network into equal size subnetworks.
+.TP
+\fB\-e\fR <\fIamount of required hosts\fR>, \fB\-\-hosts\fR <\fIamount of required hosts\fR>
+Devide the network into equal size subnetworks considering the required hosts.
+.TP
+\fB\-d\fR <\fIamount of required subnets\fR>, \fB\-\-deviding\fR <\fIamount of required subnets\fR>
+Devide the network into subnetworks, then do it and stop when it runs out of requests.
+.TP
+\fB\-c\fR <\fIrequired hosts in cronological order\fR>, \fB\-\-cronology\fR <\fIrequired hosts in cronological order\fR>
+Devides the network into subnetwork considering the required hosts and the order or requests.
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Display the help page
+.TP
+\fB\-v\fR, \fB\-\-version\fR
+Display the version
+.SH EXAMPLES
+.B ip-calculator
+169.254.0.0
+.br
+.B ip-calculator
+192.168.1.0
+255.255.255.0
+.br
+.B ip-calculator
+\fI\-s\fR
+3
+192.168.1.0
+255.255.255.0
+.br
+.B ip-calculator
+\fI\-e\fR
+62
+172.30.0.0
+255.255.0.0
+.br
+.B ip-calculator
+\fI\-d\fR
+4[2] 2 3[1] 4
+10.0.0.0
+255.0.0.0
+.br
+.B ip-calculator
+\fI\-c\fR
+100 2000 50 30 200
+92.128.0.0
+255.128.0.0
+.br
+.B ip-calculator
+\fI\-h\fR
+.br
+.B ip-calculator
+\fI\-v\fR
+.SH REPORTING BUGS
+You can report bugs on the project's github page.
+.br
+<https://github.com/GamerFandor/IP-Calculator/issues>
+.SH LICENCE
+IP-Calculator Copyright (C) 2022 Andor Zoltán Fülöp
+.br
+This program comes with ABSOLUTELY NO WARRANTY; for details visit <https://gnu.org/licenses/gpl.html>.
+.br
+This is free software, and you are welcome to redistribute it
+.br
+under certain conditions; visit <https://gnu.org/licenses/gpl.html> for details.
+.SH AUTHOR
+Written by Andor Zoltán Fülöp. 
