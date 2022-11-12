@@ -47,6 +47,7 @@ public:
     std::string GetMask() const;
     int GetRequiredSubnets() const;
     int GetRequiredHosts() const;
-    std::vector<int>  GetRequiredHostsList() const;
+    std::vector<int> GetRequiredHostsList() const;
+    std::vector<int> GetSubnetIndexToBeDevided() const;
     std::vector<int> GetRequiredHostsListForCronology() const;  
 };

@@ -28,8 +28,11 @@ private:
 public:
 	Address(std::string addr = "0.0.0.0", bool IsDecimal = true);
 
-	std::string GetInDecimal();
-	std::string GetInBinary();
+	std::string GetInDecimal() const;
+	std::string GetInBinary() const;
+
+	bool Equal(const Address &Other) const;
+	bool operator==(const Address &Other) const;
 
 private:
 	bool IsValidAddress(std::string addr);

@@ -80,7 +80,7 @@ int main(int argc, char **argv)
 	case Task::TASK_CALCULATEBYMULTIPLESUBNETS:
 		MainNetwork.SetNetwork(Address(args.GetIP()), Address(args.GetMask()));
 		Sub.SetNetwork(MainNetwork);
-		Output = Sub.DevideByMultipleSubnetCount(args.GetRequiredHostsList());
+		Output = Sub.DevideByMultipleSubnetCount(args.GetRequiredHostsList(), args.GetSubnetIndexToBeDevided());
 
 		Print::Table(Output);
 		break;

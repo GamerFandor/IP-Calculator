@@ -33,7 +33,7 @@ public:
 
     std::vector<Network> DevideBySubnetCount(int RequiredSubnets);
     std::vector<Network> DevideByEqualHostCount(int RequiredHosts);
-    std::vector<Network> DevideByMultipleSubnetCount(std::vector<int> RequiredHosts);
+    std::vector<Network> DevideByMultipleSubnetCount(std::vector<int> RequiredHosts, std::vector<int> SubnetToBeDevided);
     std::vector<Network> DevideByCronologicalHostRequests(std::vector<int> RequiredHosts);
 
 private:

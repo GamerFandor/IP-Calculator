@@ -95,15 +95,39 @@ std::vector<Network> Subnet::DevideByEqualHostCount(int RequiredHosts)
     return nets;
 }
 
-std::vector<Network> Subnet::DevideByMultipleSubnetCount(std::vector<int> RequiredHosts)
+std::vector<Network> Subnet::DevideByMultipleSubnetCount(std::vector<int> RequiredHosts, std::vector<int> SubnetToBeDevided)
 {   
-    std::vector<Network> nets;
-    return nets;
+    std::vector<Network> Output;
+    
+    Network NetowrkToBeDevided = this->MainNetwork;
+
+    for (int i = 0; i < RequiredHosts.size(); i++)
+    {        
+        auto temp = Subnet(NetowrkToBeDevided).DevideBySubnetCount(RequiredHosts[i]);
+
+
+        if (RequiredHosts.size() - 1 == i)
+        {       
+            Output.insert(Output.end(), temp.begin(), temp.end());
+        }
+        else
+        {
+            NetowrkToBeDevided = temp[SubnetToBeDevided[i] - 1];
+            for (int j = 0; j < temp.size(); j++)
+            {  
+                if (temp[j] == NetowrkToBeDevided) continue;
+                Output.push_back(temp[j]);
+            }
+        }
+    }
+
+    return Output;
 }
 
 std::vector<Network> Subnet::DevideByCronologicalHostRequests(std::vector<int> RequiredHosts)
 {
     std::vector<Network> nets;
+
     return nets;
 }
 

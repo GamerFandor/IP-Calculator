@@ -80,14 +80,30 @@ Address::Address(std::string addr, bool IsDecimal)
 	}
 }
 
-std::string Address::GetInDecimal()
+std::string Address::GetInDecimal() const
 {
 	return std::to_string(this->address[0]) + "." + std::to_string(this->address[1]) + "." + std::to_string(this->address[2]) + "." + std::to_string(this->address[3]);
 }
 
-std::string Address::GetInBinary()
+std::string Address::GetInBinary() const
 {
 	return Convert::ExtendBinary(Convert::DecimalToBinary(this->address[0]), 8) + Convert::ExtendBinary(Convert::DecimalToBinary(this->address[1]), 8) + Convert::ExtendBinary(Convert::DecimalToBinary(this->address[2]), 8) + Convert::ExtendBinary(Convert::DecimalToBinary(this->address[3]), 8);
+}
+
+bool Address::Equal(const Address &Other) const
+{
+	for (int i = 0; i < this->GetInBinary().length(); i++)
+	{
+		if (int(this->GetInBinary()[i]) != int(Other.GetInBinary()[i]))
+			return false;
+	}
+
+	return true;
+}
+
+bool Address::operator==(const Address &Other) const
+{
+	return this->Equal(Other);
 }
 
 bool Address::IsValidAddress(std::string addr)

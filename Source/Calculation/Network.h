@@ -42,14 +42,17 @@ public:
 	
 	void SetNetwork(Address NewIP, Address NewMask, bool IsClasslessNetwork = true);
 
-	Address GetNetworkAddress();
-	Address GetNetworkMask();
-	Address GetFirstAddress();
-	Address GetLastAddress();
-	Address GetBroadcastAddress();
-	std::string GetClass();
-	AddressClass GetClassEnum();
-	int GetAvailableHosts();
+	Address GetNetworkAddress() const;
+	Address GetNetworkMask() const;
+	Address GetFirstAddress() const;
+	Address GetLastAddress() const;
+	Address GetBroadcastAddress() const;
+	std::string GetClass() const;
+	AddressClass GetClassEnum() const;
+	int GetAvailableHosts() const;
+
+	bool Equal(const Network &Other) const;
+	bool operator==(const Network &Other) const;
 
 private:
 	bool IsValidMask(Address Mask);

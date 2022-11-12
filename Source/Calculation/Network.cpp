@@ -118,7 +118,7 @@ void Network::SetNetwork(Address NewIP, Address NewMask, bool IsClasslessNetwork
 	}
 }
 
-Address Network::GetNetworkAddress()
+Address Network::GetNetworkAddress() const
 {	
 	std::string ip = this->NetworkIP.GetInBinary().substr(0, this->Netmask.GetInBinary().find("0"));
 
@@ -129,12 +129,12 @@ Address Network::GetNetworkAddress()
 	return Address(ip, false);
 }
 
-Address Network::GetNetworkMask()
+Address Network::GetNetworkMask() const
 {
 	return this->Netmask;
 }
 
-Address Network::GetFirstAddress()
+Address Network::GetFirstAddress() const
 {
 	std::string ip = this->NetworkIP.GetInBinary().substr(0, this->Netmask.GetInBinary().find("0"));
 
@@ -147,7 +147,7 @@ Address Network::GetFirstAddress()
 	return Address(ip, false);
 }
 
-Address Network::GetLastAddress()
+Address Network::GetLastAddress() const
 {
 	std::string ip = this->NetworkIP.GetInBinary().substr(0, this->Netmask.GetInBinary().find("0"));
 
@@ -160,7 +160,7 @@ Address Network::GetLastAddress()
 	return Address(ip, false);
 }
 
-Address Network::GetBroadcastAddress()
+Address Network::GetBroadcastAddress() const
 {
 	std::string ip = this->NetworkIP.GetInBinary().substr(0, this->Netmask.GetInBinary().find("0"));
 
@@ -171,7 +171,7 @@ Address Network::GetBroadcastAddress()
 	return Address(ip, false);
 }
 
-int Network::GetAvailableHosts()
+int Network::GetAvailableHosts() const
 {
 	int HostBits = 0;
 	for (int i = 0; i < this->Netmask.GetInBinary().length(); i++)
@@ -181,7 +181,7 @@ int Network::GetAvailableHosts()
 	return pow(2, HostBits) - 2;
 }
 
-std::string Network::GetClass()
+std::string Network::GetClass() const
 {
 	switch (this->Class)
 	{
@@ -210,9 +210,19 @@ std::string Network::GetClass()
 	return "Classless";
 }
 
-AddressClass Network::GetClassEnum()
+AddressClass Network::GetClassEnum() const
 {
 	return this->Class;
+}
+
+bool Network::Equal(const Network &Other) const
+{
+	return this->GetNetworkAddress() == Other.GetNetworkAddress() && this->GetNetworkMask() == Other.GetNetworkMask();
+}
+
+bool Network::operator==(const Network &Other) const
+{
+	return this->Equal(Other);
 }
 
 bool Network::IsValidMask(Address Mask)

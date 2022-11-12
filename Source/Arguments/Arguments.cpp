@@ -58,6 +58,12 @@ std::vector<int> Arguments::GetRequiredHostsList() const
     return Output;
 }
 
+std::vector<int> Arguments::GetSubnetIndexToBeDevided() const
+{
+    std::vector<int> Output;
+    return Output;
+}
+
 std::vector<int> Arguments::GetRequiredHostsListForCronology() const
 {
     std::vector<int> Output;
