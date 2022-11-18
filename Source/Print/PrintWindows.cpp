@@ -19,9 +19,11 @@
 #include "Defines.h"
 #include "Print/Print.h"
 #include <iostream>
-#include <windows.h>
 
 #ifdef PLATFORM_WINDOWS
+
+#include <windows.h>
+
 
 void Print::Success(std::string Message)
 {

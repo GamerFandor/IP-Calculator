@@ -3,7 +3,7 @@
 IP-Calculator \- Calculates subnets and prints information about an IP address.
 .SH SYNOPSIS
 .B ip-calculator
-[\fI\,OPTION\/\fR]... <\fI\,IP ADDRESS\/\fR> [\fI\,NETMASK\/\fR]
+[\fI\,OPTION\/\fR] <\fI\,IP ADDRESS\/\fR> [\fI\,NETMASK\/\fR]
 .SH DESCRIPTION
 The IP-Calculator is one of the best programs for a system administrator.
 .br
@@ -20,10 +20,10 @@ Devide the network into equal size subnetworks.
 \fB\-e\fR <\fIamount of required hosts\fR>, \fB\-\-hosts\fR <\fIamount of required hosts\fR>
 Devide the network into equal size subnetworks considering the required hosts.
 .TP
-\fB\-d\fR <\fIamount of required subnets\fR>, \fB\-\-deviding\fR <\fIamount of required subnets\fR>
+\fB\-d\fR <\fIamount of required subnets\fR>..., \fB\-\-deviding\fR <\fIamount of required subnets\fR>...
 Devide the network into subnetworks, then do it and stop when it runs out of requests.
 .TP
-\fB\-c\fR <\fIrequired hosts in cronological order\fR>, \fB\-\-cronology\fR <\fIrequired hosts in cronological order\fR>
+\fB\-c\fR <\fIrequired hosts in cronological order\fR>..., \fB\-\-cronology\fR <\fIrequired hosts in cronological order\fR>...
 Devides the network into subnetwork considering the required hosts and the order or requests.
 .TP
 \fB\-h\fR, \fB\-\-help\fR
