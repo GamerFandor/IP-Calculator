@@ -124,9 +124,102 @@ std::vector<Network> Subnet::DevideByMultipleSubnetCount(std::vector<int> Requir
     return Output;
 }
 
+// WARN: Not working properly (it sometimes gives ether wrong output or not the smallest possible output)
 std::vector<Network> Subnet::DevideByCronologicalHostRequests(std::vector<int> RequiredHosts)
 {
     std::vector<Network> nets;
+
+    std::vector<std::string> PreviouslyCalculated; 
+
+    for (int i = 0; i < RequiredHosts.size(); i++)
+    {
+        std::string GivenNetwork = GetFixNetworkAddressPart();
+        std::string HostID(GetRequiredBits(RequiredHosts[i] + 2), '0');
+
+        std::string Calculateable;
+
+        if (PreviouslyCalculated.size() == 0)
+        {
+            std::string Temp(32 - (GivenNetwork.length() + HostID.length()), '0');
+            Calculateable = Temp;
+            PreviouslyCalculated.push_back(Calculateable);
+        }
+        else 
+        {
+            std::string Temp(32 - (GivenNetwork.length() + HostID.length()), '0');
+            Calculateable = Temp;
+
+            for (auto Previous : PreviouslyCalculated)
+            {
+                for (int j = Calculateable.length() - 1; j >= 0; j--)
+                {
+                    if (j > Previous.length() - 1) 
+                    {
+                        Calculateable[j] = '0';
+                        continue;
+                    }
+                    Calculateable[j] = '1';
+                    
+                    std::string ComparableCalculateable;
+                    std::string ComparablePrevious;
+                    if (Calculateable.length() > Previous.length())
+                    {
+                        ComparablePrevious = Previous;
+                        ComparableCalculateable = Calculateable.substr(0, Previous.length());
+                    }
+                    else
+                    {
+                        ComparableCalculateable = Calculateable;
+                        ComparablePrevious = Previous.substr(0, Calculateable.length());
+                    }
+
+                    if (Convert::BinaryToDecimal(ComparableCalculateable) > Convert::BinaryToDecimal(ComparablePrevious))
+                        break; 
+                }
+            }
+
+            std::string shortest = "00000000000000000000000000000000";
+            for (auto CheckShortest : PreviouslyCalculated)
+                if (CheckShortest.length() <= shortest.length())
+                    shortest = CheckShortest;
+
+            std::string ComparableShortest;
+            std::string ComparableCalculateable;
+            if (shortest.length() <= Calculateable.length())
+            {                
+                ComparableShortest = shortest;
+                ComparableCalculateable = Calculateable.substr(0, shortest.length());
+            }
+            else
+            {
+                ComparableCalculateable = Calculateable;
+                ComparableShortest = PreviouslyCalculated[PreviouslyCalculated.size() - 1].substr(0, Calculateable.length());
+            }
+
+            bool IsCollide = false;
+
+            while (!IsCollide)
+            {
+                if (Convert::BinaryToDecimal(ComparableCalculateable) - 1 <= Convert::BinaryToDecimal(ComparableShortest))
+                {
+                    IsCollide = true;
+                    continue;
+                }
+
+                ComparableCalculateable = Convert::ExtendBinary(Convert::DecimalToBinary(Convert::BinaryToDecimal(ComparableCalculateable) - 1), ComparableShortest.length());
+            }     
+
+            for (int i = 0; i < ComparableCalculateable.length(); i++)
+                Calculateable[i] = ComparableCalculateable[i];
+            
+
+            PreviouslyCalculated.push_back(Calculateable);
+        }
+
+        std::cout << "\033[1;34m" << GivenNetwork << "\033[0m" << Calculateable << "\033[1;32m" << HostID << "\033[0m\n";
+        std::string Mask(32 - HostID.length(), '1');
+        nets.push_back(Network(Address(GivenNetwork + Calculateable + HostID, false), Address(Mask + HostID, false)));
+    }
 
     return nets;
 }
