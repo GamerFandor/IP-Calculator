@@ -92,6 +92,7 @@ int main(int argc, char **argv)
 		Output = Sub.DevideByCronologicalHostRequests(args.GetRequiredHostsListForCronology());
 
 		Print::Table(Output);
+		Print::Warning("Cronological calculation method is not production ready yet. It may gives you wrong or not the most convinient output.");
 		break;
 
 	// Any case of detecting task wrongly the program will print the version

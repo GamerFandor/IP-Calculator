@@ -39,4 +39,5 @@ public:
 private:
     std::string GetFixNetworkAddressPart();
     int GetRequiredBits(int RequiredNetworks);
+    bool IsCollide(std::vector<std::string> PreviouslyCalculated);
 };

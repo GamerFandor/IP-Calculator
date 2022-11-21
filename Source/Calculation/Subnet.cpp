@@ -124,102 +124,65 @@ std::vector<Network> Subnet::DevideByMultipleSubnetCount(std::vector<int> Requir
     return Output;
 }
 
-// WARN: Not working properly (it sometimes gives ether wrong output or not the smallest possible output)
 std::vector<Network> Subnet::DevideByCronologicalHostRequests(std::vector<int> RequiredHosts)
 {
     std::vector<Network> nets;
 
     std::vector<std::string> PreviouslyCalculated; 
-
-    for (int i = 0; i < RequiredHosts.size(); i++)
+    
+    do
     {
-        std::string GivenNetwork = GetFixNetworkAddressPart();
-        std::string HostID(GetRequiredBits(RequiredHosts[i] + 2), '0');
-
-        std::string Calculateable;
-
-        if (PreviouslyCalculated.size() == 0)
+        for (int i = 0; i < RequiredHosts.size(); i++)
         {
-            std::string Temp(32 - (GivenNetwork.length() + HostID.length()), '0');
-            Calculateable = Temp;
-            PreviouslyCalculated.push_back(Calculateable);
-        }
-        else 
-        {
-            std::string Temp(32 - (GivenNetwork.length() + HostID.length()), '0');
-            Calculateable = Temp;
+            std::string GivenNetwork = GetFixNetworkAddressPart();
+            std::string HostID(GetRequiredBits(RequiredHosts[i] + 2), '0');
+            std::string Calculateable(32 - GivenNetwork.length() - HostID.length(), '0');
 
             for (auto Previous : PreviouslyCalculated)
             {
-                for (int j = Calculateable.length() - 1; j >= 0; j--)
-                {
-                    if (j > Previous.length() - 1) 
-                    {
-                        Calculateable[j] = '0';
-                        continue;
-                    }
-                    Calculateable[j] = '1';
-                    
-                    std::string ComparableCalculateable;
-                    std::string ComparablePrevious;
-                    if (Calculateable.length() > Previous.length())
-                    {
-                        ComparablePrevious = Previous;
-                        ComparableCalculateable = Calculateable.substr(0, Previous.length());
-                    }
-                    else
-                    {
-                        ComparableCalculateable = Calculateable;
-                        ComparablePrevious = Previous.substr(0, Calculateable.length());
-                    }
+                std::string TempCalc;
+                std::string TempPrev;
 
-                    if (Convert::BinaryToDecimal(ComparableCalculateable) > Convert::BinaryToDecimal(ComparablePrevious))
-                        break; 
+                if (Calculateable.length() > Previous.length())
+                {
+                    TempCalc = Calculateable.substr(0, Previous.length());
+                    TempPrev = Previous;
                 }
-            }
-
-            std::string shortest = "00000000000000000000000000000000";
-            for (auto CheckShortest : PreviouslyCalculated)
-                if (CheckShortest.length() <= shortest.length())
-                    shortest = CheckShortest;
-
-            std::string ComparableShortest;
-            std::string ComparableCalculateable;
-            if (shortest.length() <= Calculateable.length())
-            {                
-                ComparableShortest = shortest;
-                ComparableCalculateable = Calculateable.substr(0, shortest.length());
-            }
-            else
-            {
-                ComparableCalculateable = Calculateable;
-                ComparableShortest = PreviouslyCalculated[PreviouslyCalculated.size() - 1].substr(0, Calculateable.length());
-            }
-
-            bool IsCollide = false;
-
-            while (!IsCollide)
-            {
-                if (Convert::BinaryToDecimal(ComparableCalculateable) - 1 <= Convert::BinaryToDecimal(ComparableShortest))
+                else
                 {
-                    IsCollide = true;
-                    continue;
+                    TempCalc = Calculateable;
+                    TempPrev = Previous.substr(0, Calculateable.length());
+                }
+                
+                while (Convert::BinaryToDecimal(TempCalc) == Convert::BinaryToDecimal(TempPrev))
+                {   
+                    TempCalc = Convert::ExtendBinary(Convert::DecimalToBinary(Convert::BinaryToDecimal(TempCalc) + 1), TempPrev.length());
                 }
 
-                ComparableCalculateable = Convert::ExtendBinary(Convert::DecimalToBinary(Convert::BinaryToDecimal(ComparableCalculateable) - 1), ComparableShortest.length());
-            }     
-
-            for (int i = 0; i < ComparableCalculateable.length(); i++)
-                Calculateable[i] = ComparableCalculateable[i];
+                for (int i = 0; i < TempCalc.length(); i++)
+                    Calculateable[i] = TempCalc[i];
+            }
             
-
             PreviouslyCalculated.push_back(Calculateable);
+            
+            for (int i = 0; i < PreviouslyCalculated.size(); i++)
+            {    
+                for (int j = 0; j < PreviouslyCalculated.size() - 1; j++)
+                {
+                    if (PreviouslyCalculated[j].length() > PreviouslyCalculated[j + 1].length())
+                    {
+                        auto Temp = PreviouslyCalculated[j];
+                        PreviouslyCalculated[j] = PreviouslyCalculated[j + 1];
+                        PreviouslyCalculated[j + 1] = Temp;
+                    }
+                }
+            }
+            
+            std::string Mask(32 - HostID.length(), '1');
+            //std::cout << "\033[1;34m" << GivenNetwork << "\033[0m" << Calculateable << "\033[1;32m" << HostID << "\033[0m\n";
+            nets.push_back(Network(Address(GivenNetwork + Calculateable + HostID, false), Address(Mask + HostID, false)));
         }
-
-        std::cout << "\033[1;34m" << GivenNetwork << "\033[0m" << Calculateable << "\033[1;32m" << HostID << "\033[0m\n";
-        std::string Mask(32 - HostID.length(), '1');
-        nets.push_back(Network(Address(GivenNetwork + Calculateable + HostID, false), Address(Mask + HostID, false)));
-    }
+    } while (IsCollide(PreviouslyCalculated));
 
     return nets;
 }
@@ -237,4 +200,35 @@ int Subnet::GetRequiredBits(int RequiredNetworks)
         i++;
 
     return i;    
+}
+
+bool Subnet::IsCollide(std::vector<std::string> PreviouslyCalculated)
+{
+    for (int i = 0; i < PreviouslyCalculated.size(); i++)
+    {
+        for (int j = 0; j < PreviouslyCalculated.size(); j++)
+        {
+            if (i == j) continue;
+            
+            std::string TempCalc;
+            std::string TempPrev;
+
+            if (PreviouslyCalculated[i].length() > PreviouslyCalculated[j].length())
+            {
+                TempCalc = PreviouslyCalculated[i].substr(0, PreviouslyCalculated[j].length());
+                TempPrev = PreviouslyCalculated[j];
+            }
+            else
+            {
+                TempCalc = PreviouslyCalculated[i];
+                TempPrev = PreviouslyCalculated[j].substr(0, PreviouslyCalculated[i].length());
+            }
+
+            if (Convert::BinaryToDecimal(TempCalc) == Convert::BinaryToDecimal(TempPrev))
+            {
+                return true;
+            }
+        }
+    }
+    return false;
 }
