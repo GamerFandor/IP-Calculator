@@ -193,48 +193,73 @@ void Print::Version()
 
 void Print::Help()
 {
-    // Usage
-    std::cout << "[USAGE / EXAMPLES]\n";
-    std::cout << "   ip-calculator IP_Address\n";
-    std::cout << "   ip-calculator IP_Address Netmask\n";
-    std::cout << "   ip-calculator -s 4 IP_Address Netmask\n";
-    std::cout << "   ip-calculator -h 20 IP_Address Netmask\n";
-    std::cout << "   ip-calculator -d 2[2] 4[3] 3[1] 2 IP_Address Netmask\n";
-    std::cout << "   ip-calculator -c 100 20 30 20 IP_Address Netmask\n";
-    std::cout << "   ip-calculator -h\n";
-    std::cout << "   ip-calculator -v\n\n";
+    // Name
+    std::cout << "NAME" << "\n";
+    std::cout << "\t" << "IP-Calculator - Calculates subnets and prints information about an IP address." << "\n";
+    std::cout << "\n";
+
+    // Synopsis
+    std::cout << "SYNOPSIS" << "\n";
+    std::cout << "\t" << "ip-calculator [OPTION] <IP ADDRESS> [NETMASK]" << "\n";
+    std::cout << "\n";
 
     // Description
-    std::cout << "[DESCRIPTION]\n";
-    std::cout << "   Calculates IPv4 addresses (subneting, superneting and details). (Version 1.0.0)\n\n";
+    std::cout << "DESCRIPTION" << "\n";
+    std::cout << "\t" << "The IP-Calculator is one of the best programs for a system administrator." << "\n";
+    std::cout << "\t" << "It can print information about both classless IP addresses and IP addresses that belong to a class." << "\n";
+    std::cout << "\t" << "The program has 4 mathod for subnetting. It can devide network by the required subnet amount or the required host count." << "\n";
+    std::cout << "\t" << "It also can do more complicated calculation methods as well." << "\n";
+    std::cout << "\n";
 
-    // Positional arguments
-    std::cout << "[POSITIONAL ARGUMENTS]\n";
-    std::cout << "   IP_address\n";
-    std::cout << "         IP address of a network which you want details about.\n\n";
-    std::cout << "   Netmask\n";
-    std::cout << "         Netmask of your network.\n\n";
+    // Options
+    std::cout << "OPTIONS" << "\n";
+    std::cout << "\t" << "-s <amount of required subnets>, --subnets <amount of required subnets>" << "\n";
+    std::cout << "\t\t" << "Devide the network into equal size subnetworks." << "\n";
+    std::cout << "\n";
+    std::cout << "\t" << "-e <amount of required hosts>, --hosts <amount of required hosts>" << "\n";
+    std::cout << "\t\t" << "Devide the network into equal size subnetworks considering the required hosts." << "\n";
+    std::cout << "\n";
+    std::cout << "\t" << "-d <amount of required subnets>..., --deviding <amount of required subnets>..." << "\n";
+    std::cout << "\t\t" << "Devide the network into subnetworks, then do it and stop when it runs out of requests." << "\n";
+    std::cout << "\n";
+    std::cout << "\t" << "-c <required hosts in cronological order>..., --cronology <required hosts in cronological order>..." << "\n";
+    std::cout << "\t\t" << "Devides the network into subnetwork considering the required hosts and the order or requests." << "\n";
+    std::cout << "\n";
+    std::cout << "\t" << "-h, --help" << "\n";
+    std::cout << "\t\t" << "Display the help page" << "\n";
+    std::cout << "\n";
+    std::cout << "\t" << "-v, --version" << "\n";
+    std::cout << "\t\t" << "Display the version" << "\n";
+    std::cout << "\n";
 
-    // Optional arguments
-    std::cout << "[OPTIONAL ARGUMENTS]\n";
-    std::cout << "   -s <amount of required subnets>, --subnets <amount of required subnets>\n";
-    std::cout << "         Devides the given network into the given subnets if it possible.\n\n";
-    std::cout << "   -e <amount of required hosts>, --hosts <amount of required hosts>\n";
-    std::cout << "         Devides the given network to have enough hosts in the given subnetwork.\n\n";
-    std::cout << "   -d <amount of required subnets>, --deviding <amount of required subnets>\n";
-    std::cout << "         Devides the given network to subnetworks and subnetworks are devided into more subnetworks.\n\n";
-    std::cout << "   -c <required hosts in cronological order>, --cronology <required hosts in cronological order>\n";
-    std::cout << "         Devides the given network in cronological order.\n\n";
-    std::cout << "   -h, --help\n";
-    std::cout << "         Prints the help page.\n\n";
-    std::cout << "   -v, --version\n";
-    std::cout << "         Prints the current version of the software.\n\n";
+    // Examples
+    std::cout << "EXAMPLES" << "\n";
+    std::cout << "\t" << "ip-calculator 169.254.0.0" << "\n";
+    std::cout << "\t" << "ip-calculator 192.168.1.0 255.255.255.0" << "\n";
+    std::cout << "\t" << "ip-calculator -s 3 192.168.1.0 255.255.255.0" << "\n";
+    std::cout << "\t" << "ip-calculator -e 62 172.30.0.0 255.255.0.0" << "\n";
+    std::cout << "\t" << "ip-calculator -d 4[2] 2 3[1] 4 10.0.0.0 255.0.0.0" << "\n";
+    std::cout << "\t" << "ip-calculator -c 100 2000 50 30 20 92.128.0.0 255.128.0.0" << "\n";
+    std::cout << "\t" << "ip-calculator -h" << "\n";
+    std::cout << "\t" << "ip-calculator -v" << "\n";
+    std::cout << "\n";
+
+    // Reporting Bugs
+    std::cout << "REPORTING BUGS" << "\n";
+    std::cout << "\t" << "You can report bugs on the project's github page." << "\n";
+    std::cout << "\t" << "<https://github.com/GamerFandor/IP-Calculator/issues>" << "\n";
+    std::cout << "\n";
     
-    // Author
-    std::cout << "[AUTHOR]\n";
-    std::cout << "   Written by Andor Zoltan Fulop.\n\n";
-
     // Licence
-    std::cout << "[LICENCE]\n";
-    std::cout << "   IP-Calculator Copyright (C) 2022 Andor Zoltan Fulop\n   This program comes with ABSOLUTELY NO WARRANTY; for details visit <https://gnu.org/licenses/gpl.html>.\n   This is free software, and you are welcome to redistribute it\n   under certain conditions; visit <https://gnu.org/licenses/gpl.html> for details.\n";
+    std::cout << "LICENCE" << "\n";
+    std::cout << "\t" << "IP-Calculator Copyright (C) 2022 Andor Zoltan Fulop" << "\n";
+    std::cout << "\t" << "This program comes with ABSOLUTELY NO WARRANTY; for details visit <https://gnu.org/licenses/gpl.html>." << "\n";
+    std::cout << "\t" << "This is free software, and you are welcome to redistribute it" << "\n";
+    std::cout << "\t" << "under certain conditions; visit <https://gnu.org/licenses/gpl.html> for details." << "\n";
+    std::cout << "\n";
+
+    // Author
+    std::cout << "AUTHOR" << "\n";
+    std::cout << "\t" << "Written by Andor Zoltan Fulop." << "\n";
+    std::cout << "\n";
 }
