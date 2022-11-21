@@ -36,8 +36,7 @@ enum Task
 class Arguments
 {
 private:
-    int argc = 0;
-    char ** argv = {};
+    std::vector<std::string> argv;
 
 public:
     Arguments(int argc, char **argv);
@@ -49,5 +48,9 @@ public:
     int GetRequiredHosts() const;
     std::vector<int> GetRequiredHostsList() const;
     std::vector<int> GetSubnetIndexToBeDevided() const;
-    std::vector<int> GetRequiredHostsListForCronology() const;  
+    std::vector<int> GetRequiredHostsListForCronology() const;
+
+private:
+    bool Contains(std::string Searched) const;
+    int FlagCount() const;
 };
